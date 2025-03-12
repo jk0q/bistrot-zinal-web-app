@@ -629,6 +629,243 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       z-index: 2;
     }
+    
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .modal {
+      background-color: white;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transform: translateY(-20px);
+      transition: transform 0.3s ease;
+    }
+    
+    [data-theme="dark"] .modal {
+      background-color: #333;
+      color: white;
+    }
+    
+    .modal-overlay.active .modal {
+      transform: translateY(0);
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--dark-color);
+    }
+    
+    [data-theme="dark"] .modal-close {
+      color: white;
+    }
+    
+    .time-slots {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    
+    .time-slot {
+      padding: 0.5rem;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .time-slot:hover {
+      background-color: var(--light-color);
+    }
+    
+    .time-slot.selected {
+      background-color: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+    
+    .time-slot.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background-color: #f1f1f1;
+    }
+    
+    .date-picker {
+      display: flex;
+      overflow-x: auto;
+      margin: 1rem 0;
+      padding-bottom: 0.5rem;
+    }
+    
+    .date-option {
+      min-width: 100px;
+      padding: 0.5rem;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-right: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .date-option:hover {
+      background-color: var(--light-color);
+    }
+    
+    .date-option.selected {
+      background-color: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+    
+    .date-option .day-name {
+      font-weight: bold;
+    }
+    
+    .date-option .date {
+      font-size: 0.9rem;
+    }
+    
+    .order-summary {
+      background-color: var(--light-color);
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+    
+    [data-theme="dark"] .order-summary {
+      background-color: #444;
+    }
+    
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      margin-top: 1rem;
+      padding-top: 0.5rem;
+      border-top: 2px solid var(--accent-color);
+    }
+    
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--success-color);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 4px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    
+    .notification.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .notification.error {
+      background-color: #f44336;
+    }
+    
+    .steps {
+      display: flex;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 1rem;
+    }
+    
+    .step {
+      flex: 1;
+      text-align: center;
+      padding: 0.5rem;
+      position: relative;
+      opacity: 0.5;
+    }
+    
+    .step.active {
+      opacity: 1;
+    }
+    
+    .step.completed {
+      opacity: 0.8;
+    }
+    
+    .step-number {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      line-height: 30px;
+      margin-bottom: 0.5rem;
+    }
+    
+    .step.completed .step-number {
+      background-color: var(--success-color);
+    }
+    
+    .step::after {
+      content: '';
+      position: absolute;
+      top: 15px;
+      right: -50%;
+      width: 100%;
+      height: 2px;
+      background-color: #ddd;
+      z-index: -1;
+    }
+    
+    .step:last-child::after {
+      display: none;
+    }
+    
+    .step.completed::after {
+      background-color: var(--success-color);
+    }
   </style>
 </head>
 <body>
@@ -975,6 +1212,15 @@
       </p>
       <a href="#" class="cta-button">Voir notre carte complète</a>
     </div>
+    
+    <div class="section fade-in">
+      <h2>Réservez une table</h2>
+      <p>
+        Réservez votre table au Bistrot de Zinal pour profiter d'un moment convivial dans notre restaurant.
+        Nous vous accueillons tous les jours pour le déjeuner et le dîner.
+      </p>
+      <button id="open-reservation-modal" class="cta-button pulse">Réserver maintenant</button>
+    </div>
   </div>
   
   <div class="footer">
@@ -988,6 +1234,151 @@
         <a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">TripAdvisor</a>
       </div>
     </div>
+  </div>
+  
+  <!-- Modals -->
+  <div id="reservation-modal" class="modal-overlay">
+    <div class="modal">
+      <button class="modal-close">&times;</button>
+      <h2>Réservation de table</h2>
+      
+      <div class="steps">
+        <div class="step active" data-step="1">
+          <div class="step-number">1</div>
+          <div>Date & Heure</div>
+        </div>
+        <div class="step" data-step="2">
+          <div class="step-number">2</div>
+          <div>Informations</div>
+        </div>
+        <div class="step" data-step="3">
+          <div class="step-number">3</div>
+          <div>Confirmation</div>
+        </div>
+      </div>
+      
+      <div class="step-content" data-step="1">
+        <h3>Choisissez une date</h3>
+        <div class="date-picker" id="date-picker">
+          <!-- Dates will be generated by JavaScript -->
+        </div>
+        
+        <h3>Choisissez une heure</h3>
+        <div>
+          <h4>Déjeuner</h4>
+          <div class="time-slots" id="lunch-slots">
+            <div class="time-slot" data-time="12:00">12:00</div>
+            <div class="time-slot" data-time="12:30">12:30</div>
+            <div class="time-slot" data-time="13:00">13:00</div>
+            <div class="time-slot" data-time="13:30">13:30</div>
+            <div class="time-slot" data-time="14:00">14:00</div>
+          </div>
+          
+          <h4>Dîner</h4>
+          <div class="time-slots" id="dinner-slots">
+            <div class="time-slot" data-time="18:30">18:30</div>
+            <div class="time-slot" data-time="19:00">19:00</div>
+            <div class="time-slot" data-time="19:30">19:30</div>
+            <div class="time-slot" data-time="20:00">20:00</div>
+            <div class="time-slot" data-time="20:30">20:30</div>
+            <div class="time-slot" data-time="21:00">21:00</div>
+          </div>
+        </div>
+        
+        <button id="step1-next" class="cta-button" disabled>Continuer</button>
+      </div>
+      
+      <div class="step-content" data-step="2" style="display: none;">
+        <h3>Vos informations</h3>
+        <form id="reservation-form">
+          <div class="form-row">
+            <label for="reservation-name">Nom et prénom</label>
+            <input type="text" id="reservation-name" required>
+          </div>
+          <div class="form-row">
+            <label for="reservation-email">Email</label>
+            <input type="email" id="reservation-email" required>
+          </div>
+          <div class="form-row">
+            <label for="reservation-phone">Téléphone</label>
+            <input type="tel" id="reservation-phone" required>
+          </div>
+          <div class="form-row">
+            <label for="reservation-guests">Nombre de personnes</label>
+            <select id="reservation-guests" required>
+              <option value="">Sélectionnez</option>
+              <option value="1">1 personne</option>
+              <option value="2">2 personnes</option>
+              <option value="3">3 personnes</option>
+              <option value="4">4 personnes</option>
+              <option value="5">5 personnes</option>
+              <option value="6">6 personnes</option>
+              <option value="7">7 personnes</option>
+              <option value="8">8 personnes</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="reservation-notes">Demandes particulières</label>
+            <textarea id="reservation-notes" rows="3"></textarea>
+          </div>
+          
+          <div class="form-buttons">
+            <button type="button" id="step2-prev" class="button">Retour</button>
+            <button type="button" id="step2-next" class="cta-button">Vérifier et confirmer</button>
+          </div>
+        </form>
+      </div>
+      
+      <div class="step-content" data-step="3" style="display: none;">
+        <h3>Confirmez votre réservation</h3>
+        
+        <div class="order-summary">
+          <div class="summary-item">
+            <span>Date:</span>
+            <span id="summary-date"></span>
+          </div>
+          <div class="summary-item">
+            <span>Heure:</span>
+            <span id="summary-time"></span>
+          </div>
+          <div class="summary-item">
+            <span>Nombre de personnes:</span>
+            <span id="summary-guests"></span>
+          </div>
+          <div class="summary-item">
+            <span>Nom:</span>
+            <span id="summary-name"></span>
+          </div>
+          <div class="summary-item">
+            <span>Contact:</span>
+            <span id="summary-contact"></span>
+          </div>
+          <div class="summary-item">
+            <span>Demandes particulières:</span>
+            <span id="summary-notes"></span>
+          </div>
+        </div>
+        
+        <div class="form-buttons">
+          <button type="button" id="step3-prev" class="button">Modifier</button>
+          <button type="button" id="confirm-reservation" class="cta-button">Confirmer la réservation</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="order-confirmation-modal" class="modal-overlay">
+    <div class="modal">
+      <button class="modal-close">&times;</button>
+      <h2>Commande confirmée</h2>
+      <p>Votre commande a été enregistrée avec succès. Vous recevrez un email de confirmation dans les prochaines minutes.</p>
+      <p>Numéro de commande: <strong id="order-number"></strong></p>
+      <button class="cta-button close-modal">Fermer</button>
+    </div>
+  </div>
+  
+  <div class="notification" id="notification">
+    Message de notification
   </div>
   
   <div id="chatbot-container" class="chatbot-container">
@@ -1247,6 +1638,209 @@
             document.querySelector('.tab').click();
             document.querySelector('.section:nth-child(3)').scrollIntoView({ behavior: 'smooth' });
           }
+        });
+      });
+      
+      // Reservation modal functionality
+      const reservationModal = document.getElementById('reservation-modal');
+      const openReservationBtn = document.getElementById('open-reservation-modal');
+      const closeButtons = document.querySelectorAll('.modal-close, .close-modal');
+      
+      // Date picker for reservation
+      const datePicker = document.getElementById('date-picker');
+      const currentDate = new Date();
+      
+      // Generate dates for the next 14 days
+      for (let i = 0; i < 14; i++) {
+        const date = new Date();
+        date.setDate(currentDate.getDate() + i);
+        
+        const dateOption = document.createElement('div');
+        dateOption.className = 'date-option' + (i === 0 ? ' selected' : '');
+        dateOption.setAttribute('data-date', date.toISOString().split('T')[0]);
+        
+        const dayName = date.toLocaleDateString('fr-FR', { weekday: 'short' });
+        const dayNumber = date.getDate();
+        const month = date.toLocaleDateString('fr-FR', { month: 'short' });
+        
+        dateOption.innerHTML = `
+          <div class="day-name">${dayName}</div>
+          <div class="date">${dayNumber} ${month}</div>
+        `;
+        
+        datePicker.appendChild(dateOption);
+      }
+      
+      // Time slot selection
+      const timeSlots = document.querySelectorAll('.time-slot');
+      let selectedDate = document.querySelector('.date-option.selected').getAttribute('data-date');
+      let selectedTime = null;
+      
+      // Step navigation
+      const steps = document.querySelectorAll('.step');
+      const stepContents = document.querySelectorAll('.step-content');
+      const step1Next = document.getElementById('step1-next');
+      const step2Prev = document.getElementById('step2-prev');
+      const step2Next = document.getElementById('step2-next');
+      const step3Prev = document.getElementById('step3-prev');
+      const confirmReservation = document.getElementById('confirm-reservation');
+      
+      // Date selection
+      datePicker.addEventListener('click', function(e) {
+        const dateOption = e.target.closest('.date-option');
+        if (dateOption) {
+          document.querySelectorAll('.date-option').forEach(opt => opt.classList.remove('selected'));
+          dateOption.classList.add('selected');
+          selectedDate = dateOption.getAttribute('data-date');
+          
+          // Reset time selection
+          timeSlots.forEach(slot => slot.classList.remove('selected'));
+          selectedTime = null;
+          step1Next.disabled = true;
+        }
+      });
+      
+      // Time slot selection
+      document.querySelectorAll('.time-slots').forEach(container => {
+        container.addEventListener('click', function(e) {
+          const timeSlot = e.target.closest('.time-slot');
+          if (timeSlot && !timeSlot.classList.contains('disabled')) {
+            timeSlots.forEach(slot => slot.classList.remove('selected'));
+            timeSlot.classList.add('selected');
+            selectedTime = timeSlot.getAttribute('data-time');
+            step1Next.disabled = false;
+          }
+        });
+      });
+      
+      // Open reservation modal
+      openReservationBtn.addEventListener('click', function() {
+        reservationModal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+      });
+      
+      // Close modals
+      closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.classList.remove('active');
+          });
+          document.body.style.overflow = ''; // Restore scrolling
+        });
+      });
+      
+      // Step navigation
+      step1Next.addEventListener('click', function() {
+        goToStep(2);
+      });
+      
+      step2Prev.addEventListener('click', function() {
+        goToStep(1);
+      });
+      
+      step2Next.addEventListener('click', function() {
+        // Validate form
+        const form = document.getElementById('reservation-form');
+        if (form.checkValidity()) {
+          updateSummary();
+          goToStep(3);
+        } else {
+          showNotification('Veuillez remplir tous les champs obligatoires', true);
+        }
+      });
+      
+      step3Prev.addEventListener('click', function() {
+        goToStep(2);
+      });
+      
+      function goToStep(stepNumber) {
+        steps.forEach(step => {
+          const stepNum = parseInt(step.getAttribute('data-step'));
+          step.classList.remove('active', 'completed');
+          if (stepNum === stepNumber) {
+            step.classList.add('active');
+          } else if (stepNum < stepNumber) {
+            step.classList.add('completed');
+          }
+        });
+        
+        stepContents.forEach(content => {
+          content.style.display = 'none';
+          if (parseInt(content.getAttribute('data-step')) === stepNumber) {
+            content.style.display = 'block';
+          }
+        });
+      }
+      
+      function updateSummary() {
+        const dateObj = new Date(selectedDate);
+        const formattedDate = dateObj.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        
+        document.getElementById('summary-date').textContent = formattedDate;
+        document.getElementById('summary-time').textContent = selectedTime;
+        document.getElementById('summary-guests').textContent = document.getElementById('reservation-guests').value + ' personne(s)';
+        document.getElementById('summary-name').textContent = document.getElementById('reservation-name').value;
+        document.getElementById('summary-contact').textContent = document.getElementById('reservation-email').value + ' / ' + document.getElementById('reservation-phone').value;
+        document.getElementById('summary-notes').textContent = document.getElementById('reservation-notes').value || 'Aucune';
+      }
+      
+      // Confirm reservation
+      confirmReservation.addEventListener('click', function() {
+        // Here you would normally send the data to your server
+        const orderNumber = 'RES-' + Math.floor(Math.random() * 10000);
+        document.getElementById('order-number').textContent = orderNumber;
+        
+        reservationModal.classList.remove('active');
+        document.getElementById('order-confirmation-modal').classList.add('active');
+        
+        // Reset form
+        document.getElementById('reservation-form').reset();
+        timeSlots.forEach(slot => slot.classList.remove('selected'));
+        goToStep(1);
+      });
+      
+      // Notification system
+      function showNotification(message, isError = false) {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.className = 'notification show' + (isError ? ' error' : '');
+        
+        setTimeout(() => {
+          notification.classList.remove('show');
+        }, 3000);
+      }
+      
+      // Enhance order forms
+      const orderForms = document.querySelectorAll('#breakfast-form, #takeaway-form, #wraps-form');
+      
+      orderForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Check if it's after 17:00 for next day breakfast orders
+          const currentTime = new Date();
+          const hours = currentTime.getHours();
+          
+          if (form.id === 'breakfast-form' && hours >= 17) {
+            showNotification('Les commandes de sandwichs pour le lendemain doivent être passées avant 17h00', true);
+            return;
+          }
+          
+          // For takeaway orders, check if it's between 17:30 and 21:00
+          if (form.id === 'takeaway-form') {
+            if (hours < 17 || hours >= 21) {
+              showNotification('Les commandes à emporter sont disponibles entre 17h30 et 21h00', true);
+              return;
+            }
+          }
+          
+          // Here you would normally send the data to your server
+          const orderNumber = 'CMD-' + Math.floor(Math.random() * 10000);
+          document.getElementById('order-number').textContent = orderNumber;
+          document.getElementById('order-confirmation-modal').classList.add('active');
+          
+          // Reset form
+          form.reset();
         });
       });
     });
