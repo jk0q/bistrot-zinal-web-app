@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bistrot de Zinal - Restaurant de l'Hôtel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     :root {
       --primary-color: #5D4037;
@@ -12,15 +13,27 @@
       --dark-color: #3E2723;
       --success-color: #4CAF50;
       --warning-color: #FFC107;
+      --text-color: #3E2723;
+      --bg-color: #EFEBE9;
+    }
+    
+    [data-theme="dark"] {
+      --primary-color: #3E2723;
+      --accent-color: #5D4037;
+      --light-color: #212121;
+      --dark-color: #EFEBE9;
+      --text-color: #EFEBE9;
+      --bg-color: #212121;
     }
     
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: var(--light-color);
-      color: var(--dark-color);
+      background-color: var(--bg-color);
+      color: var(--text-color);
       line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     
     .header {
@@ -29,6 +42,24 @@
       text-align: center;
       padding: 2rem 1rem;
       position: relative;
+      overflow: hidden;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover;
+      opacity: 0.3;
+      z-index: 0;
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 1;
     }
     
     .logo {
@@ -54,6 +85,19 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       padding: 2rem;
       margin-bottom: 2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+    
+    [data-theme="dark"] .section {
+      background-color: #333;
+      color: #fff;
     }
     
     h1, h2, h3 {
@@ -91,6 +135,14 @@
       border-radius: 8px;
       padding: 1rem;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      background-color: white;
+    }
+    
+    [data-theme="dark"] .menu-item {
+      background-color: #444;
+      border-color: #555;
     }
     
     .menu-item:hover {
@@ -370,17 +422,272 @@
     .menu-item:hover:before {
       height: 100%;
     }
+    
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+    
+    .theme-toggle:hover {
+      background-color: var(--accent-color);
+    }
+    
+    .carousel {
+      width: 100%;
+      height: 300px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+    }
+    
+    .carousel-inner {
+      display: flex;
+      width: 300%;
+      height: 100%;
+      transition: transform 0.5s ease;
+    }
+    
+    .carousel-item {
+      width: 33.333%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    
+    .carousel-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    
+    .carousel-controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      z-index: 10;
+    }
+    
+    .carousel-control {
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin: 0 10px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .carousel-control:hover {
+      background-color: rgba(0,0,0,0.8);
+    }
+    
+    .carousel-indicators {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      z-index: 10;
+    }
+    
+    .carousel-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: rgba(255,255,255,0.5);
+      margin: 0 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .carousel-indicator.active {
+      background-color: white;
+    }
+    
+    .parallax-section {
+      height: 300px;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    .parallax-content {
+      background-color: rgba(0,0,0,0.6);
+      color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      text-align: center;
+      max-width: 600px;
+    }
+    
+    .scroll-to-top {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 999;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: opacity 0.3s ease, background-color 0.3s ease;
+    }
+    
+    .scroll-to-top.visible {
+      opacity: 1;
+    }
+    
+    .scroll-to-top:hover {
+      background-color: var(--accent-color);
+    }
+    
+    .animated-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.05;
+      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .special-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: var(--warning-color);
+      color: var(--dark-color);
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      transform: rotate(15deg);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      z-index: 2;
+    }
   </style>
 </head>
 <body>
+  <button id="theme-toggle" class="theme-toggle" aria-label="Changer de thème">
+    <i class="fas fa-moon"></i>
+  </button>
+  
+  <button id="scroll-to-top" class="scroll-to-top" aria-label="Retour en haut">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+  
   <div class="header">
-    <div class="logo">Bistrot de Zinal</div>
-    <div class="tagline">Saveurs authentiques au cœur des montagnes</div>
+    <div class="animated-bg"></div>
+    <div class="header-content">
+      <div class="logo">Bistrot de Zinal</div>
+      <div class="tagline">Saveurs authentiques au cœur des montagnes</div>
+    </div>
   </div>
   
   <div class="container">
-    <div class="section">
+    <div class="section fade-in">
       <h2>Bienvenue au Bistrot de Zinal</h2>
+      
+      <div class="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')">
+            <div class="carousel-caption">
+              <h3>Une cuisine authentique</h3>
+              <p>Des plats traditionnels préparés avec passion</p>
+            </div>
+          </div>
+          <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1515669097368-22e68427d265?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')">
+            <div class="carousel-caption">
+              <h3>Un cadre chaleureux</h3>
+              <p>Profitez d'une ambiance conviviale en montagne</p>
+            </div>
+          </div>
+          <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')">
+            <div class="carousel-caption">
+              <h3>Des produits locaux</h3>
+              <p>Nous privilégions les producteurs de la région</p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-controls">
+          <button class="carousel-control prev">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="carousel-control next">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+        <div class="carousel-indicators">
+          <span class="carousel-indicator active" data-index="0"></span>
+          <span class="carousel-indicator" data-index="1"></span>
+          <span class="carousel-indicator" data-index="2"></span>
+        </div>
+      </div>
+      
       <p>
         Notre restaurant vous propose une cuisine locale et savoureuse dans un cadre chaleureux et convivial. 
         Que vous soyez un client de l'hôtel ou de passage dans notre belle région, notre équipe est heureuse de vous accueillir.
@@ -390,7 +697,15 @@
       </p>
     </div>
     
-    <div class="section">
+    <div class="parallax-section" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')">
+      <div class="parallax-content">
+        <h2>L'authenticité des Alpes valaisannes</h2>
+        <p>Découvrez une cuisine de montagne préparée avec passion et savoir-faire</p>
+        <button class="cta-button pulse">Réserver une table</button>
+      </div>
+    </div>
+    
+    <div class="section fade-in">
       <h2>Nos horaires</h2>
       <div class="hours">
         <div class="hours-col">
@@ -410,7 +725,7 @@
       </div>
     </div>
     
-    <div class="section">
+    <div class="section fade-in">
       <h2>Commandez facilement</h2>
       
       <div class="tab-container">
@@ -426,6 +741,7 @@
           
           <div class="menu-items">
             <div class="menu-item">
+              <div class="special-badge">Populaire</div>
               <h3>Sandwich Alpin</h3>
               <p>Fromage d'alpage, jambon cru, beurre, salade</p>
               <div class="price">8.50 CHF</div>
@@ -568,6 +884,7 @@
           
           <div class="menu-items">
             <div class="menu-item">
+              <div class="special-badge">Nouveau</div>
               <h3>Wrap Poulet César</h3>
               <p>Poulet grillé, salade romaine, parmesan, sauce césar</p>
               <div class="price">12.50 CHF</div>
@@ -580,6 +897,7 @@
             </div>
             
             <div class="menu-item">
+              <div class="special-badge">Fait maison</div>
               <h3>Lasagne Bolognaise</h3>
               <p>Lasagne traditionnelle à la viande, sauce tomate et béchamel</p>
               <div class="price">16.50 CHF</div>
@@ -640,7 +958,15 @@
       </div>
     </div>
     
-    <div class="section">
+    <div class="parallax-section" style="background-image: url('https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1473&q=80')">
+      <div class="parallax-content">
+        <h2>Commandez en ligne</h2>
+        <p>Profitez de nos plats à emporter pour savourer notre cuisine où vous le souhaitez</p>
+        <button class="cta-button pulse">Commander maintenant</button>
+      </div>
+    </div>
+    
+    <div class="section fade-in">
       <h2>Notre restaurant</h2>
       <p>
         Le Bistrot de Zinal vous accueille dans un cadre chaleureux et authentique au cœur des Alpes valaisannes.
@@ -678,7 +1004,9 @@
     </div>
   </div>
   
-  <button id="open-chatbot" class="chatbot-button">Besoin d'aide ?</button>
+  <button id="open-chatbot" class="chatbot-button pulse">
+    <i class="fas fa-comment-dots"></i> Besoin d'aide ?
+  </button>
   
   <script>
     function openTab(evt, tabName) {
@@ -712,6 +1040,93 @@
         document.getElementById('breakfast-date').min = tomorrowStr;
         document.getElementById('breakfast-date').value = tomorrowStr;
       }
+      
+      // Theme toggle functionality
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeIcon = themeToggle.querySelector('i');
+      
+      themeToggle.addEventListener('click', function() {
+        document.body.setAttribute('data-theme', 
+          document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+        );
+        
+        themeIcon.className = document.body.getAttribute('data-theme') === 'dark' 
+          ? 'fas fa-sun' 
+          : 'fas fa-moon';
+      });
+      
+      // Carousel functionality
+      const carouselInner = document.querySelector('.carousel-inner');
+      const prevButton = document.querySelector('.carousel-control.prev');
+      const nextButton = document.querySelector('.carousel-control.next');
+      const indicators = document.querySelectorAll('.carousel-indicator');
+      let currentSlide = 0;
+      
+      function updateCarousel() {
+        carouselInner.style.transform = `translateX(-${currentSlide * 33.333}%)`;
+        
+        indicators.forEach((indicator, index) => {
+          indicator.classList.toggle('active', index === currentSlide);
+        });
+      }
+      
+      prevButton.addEventListener('click', function() {
+        currentSlide = (currentSlide - 1 + 3) % 3;
+        updateCarousel();
+      });
+      
+      nextButton.addEventListener('click', function() {
+        currentSlide = (currentSlide + 1) % 3;
+        updateCarousel();
+      });
+      
+      indicators.forEach(indicator => {
+        indicator.addEventListener('click', function() {
+          currentSlide = parseInt(this.getAttribute('data-index'));
+          updateCarousel();
+        });
+      });
+      
+      // Auto-rotate carousel
+      setInterval(function() {
+        currentSlide = (currentSlide + 1) % 3;
+        updateCarousel();
+      }, 5000);
+      
+      // Scroll to top button
+      const scrollToTopButton = document.getElementById('scroll-to-top');
+      
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          scrollToTopButton.classList.add('visible');
+        } else {
+          scrollToTopButton.classList.remove('visible');
+        }
+      });
+      
+      scrollToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+      
+      // Fade-in animations on scroll
+      const fadeElements = document.querySelectorAll('.fade-in');
+      
+      function checkFade() {
+        fadeElements.forEach(element => {
+          const elementTop = element.getBoundingClientRect().top;
+          const elementVisible = 150;
+          
+          if (elementTop < window.innerHeight - elementVisible) {
+            element.classList.add('visible');
+          }
+        });
+      }
+      
+      window.addEventListener('scroll', checkFade);
+      checkFade(); // Check on initial load
       
       // Chatbot functionality
       const chatbotButton = document.getElementById('open-chatbot');
@@ -808,6 +1223,30 @@
           const formId = e.target.id;
           alert('Merci pour votre commande ! Nous la traiterons dans les plus brefs délais.');
           e.target.reset();
+        });
+      });
+      
+      // Parallax effect enhancement
+      const parallaxSections = document.querySelectorAll('.parallax-section');
+      
+      window.addEventListener('scroll', function() {
+        parallaxSections.forEach(section => {
+          const distance = window.pageYOffset;
+          section.style.backgroundPositionY = `${distance * 0.1}px`;
+        });
+      });
+      
+      // Add interactive buttons
+      const ctaButtons = document.querySelectorAll('.cta-button');
+      
+      ctaButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          if (this.textContent.includes('Réserver')) {
+            alert('Pour réserver une table, veuillez nous appeler au +41 27 475 XX XX ou envoyer un email à info@bistrotzinal.ch.');
+          } else if (this.textContent.includes('Commander')) {
+            document.querySelector('.tab').click();
+            document.querySelector('.section:nth-child(3)').scrollIntoView({ behavior: 'smooth' });
+          }
         });
       });
     });
