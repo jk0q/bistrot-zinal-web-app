@@ -7,10 +7,10 @@ export default function HomePage() {
       <Stack gap="xl" align="center">
         <Title order={1}>Bienvenue au Bistrot de Zinal</Title>
         <Image
-          src="/bistrot-facade.jpg"
+          src="https://placehold.co/800x400?text=Bistrot+de+Zinal"
           alt="Façade du Bistrot de Zinal"
           height={400}
-          fallbackSrc="https://placehold.co/600x400?text=Bistrot+de+Zinal"
+          width={800}
         />
         <Text size="lg" ta="center">
           Découvrez notre cuisine authentique et chaleureuse au cœur des Alpes valaisannes.
