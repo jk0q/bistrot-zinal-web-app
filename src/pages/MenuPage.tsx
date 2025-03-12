@@ -45,7 +45,7 @@ export default function MenuPage() {
           {menuItems.map((item, index) => (
             <Grid.Col key={index} span={{ base: 12, sm: 6, md: 4 }}>
               <Card shadow="sm" padding="lg" radius="md" withBorder>
-                <Stack>
+                <Stack gap="sm">
                   <Title order={3}>{item.name}</Title>
                   <Badge>{item.category}</Badge>
                   <Text size="sm" c="dimmed">{item.description}</Text>
