@@ -28,7 +28,7 @@ export default function ContactPage() {
 
         <Grid>
           <Grid.Col span={{ base: 12, md: 6 }}>
-            <Stack>
+            <Stack gap="md">
               <Title order={2}>Nos Coordonnées</Title>
               <Text>Route de Zinal 42</Text>
               <Text>3961 Zinal</Text>
@@ -44,7 +44,7 @@ export default function ContactPage() {
 
           <Grid.Col span={{ base: 12, md: 6 }}>
             <form onSubmit={handleSubmit}>
-              <Stack>
+              <Stack gap="md">
                 <Title order={2}>Envoyez-nous un message</Title>
                 
                 <TextInput
