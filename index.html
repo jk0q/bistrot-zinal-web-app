@@ -3,50 +3,495 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bistrot de Zinal - Page Statique</title>
+  <title>Bistrot de Zinal - Restaurant de l'Hôtel</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
+    :root {
+      --primary-color: #5D4037;
+      --accent-color: #8D6E63;
+      --light-color: #EFEBE9;
+      --dark-color: #3E2723;
+      --success-color: #4CAF50;
+      --warning-color: #FFC107;
     }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--light-color);
+      color: var(--dark-color);
+      line-height: 1.6;
+    }
+    
+    .header {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      position: relative;
+    }
+    
+    .logo {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    
+    .tagline {
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    
     .container {
-      max-width: 800px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 1rem;
+    }
+    
+    .section {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    h1, h2, h3 {
+      color: var(--primary-color);
+    }
+    
+    h2 {
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 0.5rem;
+      margin-top: 0;
+    }
+    
+    .hours {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+    
+    .hours-col {
+      flex: 1;
+      min-width: 200px;
+      margin-bottom: 1rem;
+    }
+    
+    .menu-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .menu-item {
       border: 1px solid #ddd;
       border-radius: 8px;
-      background-color: #f9f9f9;
+      padding: 1rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    h1 {
-      color: #333;
+    
+    .menu-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
-    .button {
-      display: inline-block;
-      padding: 10px 15px;
-      margin: 5px;
-      background-color: #4CAF50;
+    
+    .menu-item h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+    
+    .price {
+      font-weight: bold;
+      color: var(--accent-color);
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+    }
+    
+    .order-form {
+      background-color: var(--light-color);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+    
+    .form-row {
+      margin-bottom: 1rem;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    
+    input, select, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    
+    button {
+      background-color: var(--primary-color);
       color: white;
       border: none;
       border-radius: 4px;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
-    .button.blue { background-color: #2196F3; }
-    .button.red { background-color: #f44336; }
+    
+    button:hover {
+      background-color: var(--accent-color);
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background-color: var(--success-color);
+      color: white;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-top: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    
+    .cta-button:hover {
+      background-color: #388E3C;
+    }
+    
+    .tab-container {
+      margin-top: 1rem;
+    }
+    
+    .tabs {
+      display: flex;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--accent-color);
+    }
+    
+    .tab {
+      padding: 0.8rem 1.5rem;
+      cursor: pointer;
+      background-color: #f1f1f1;
+      margin-right: 0.5rem;
+      border-radius: 4px 4px 0 0;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+    
+    .tab.active {
+      background-color: var(--accent-color);
+      color: white;
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .footer {
+      background-color: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .contact-info {
+      margin-top: 1rem;
+    }
+    
+    .social-links {
+      margin-top: 1rem;
+    }
+    
+    .social-links a {
+      color: white;
+      margin: 0 0.5rem;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+    
+    @media (max-width: 768px) {
+      .menu-items {
+        grid-template-columns: 1fr;
+      }
+      
+      .hours {
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="header">
+    <div class="logo">Bistrot de Zinal</div>
+    <div class="tagline">Saveurs authentiques au cœur des montagnes</div>
+  </div>
+  
   <div class="container">
-    <h1>Bistrot de Zinal</h1>
-    <p>Page HTML statique de test pour GitHub Pages</p>
-    <p>Si vous voyez cette page, le déploiement fonctionne !</p>
+    <div class="section">
+      <h2>Bienvenue au Bistrot de Zinal</h2>
+      <p>
+        Notre restaurant vous propose une cuisine locale et savoureuse dans un cadre chaleureux et convivial. 
+        Que vous soyez un client de l'hôtel ou de passage dans notre belle région, notre équipe est heureuse de vous accueillir.
+      </p>
+      <p>
+        Nous privilégions les produits locaux et de saison pour vous offrir une expérience culinaire authentique qui met en valeur les saveurs des Alpes valaisannes.
+      </p>
+    </div>
     
-    <div>
-      <button class="button blue">Accueil</button>
-      <button class="button">Menu</button>
-      <button class="button red">Contact</button>
+    <div class="section">
+      <h2>Nos horaires</h2>
+      <div class="hours">
+        <div class="hours-col">
+          <h3>Petit déjeuner</h3>
+          <p>Tous les jours: 7h00 - 10h30</p>
+          <p><strong>Commande de sandwichs</strong> avant 20h00 la veille</p>
+        </div>
+        <div class="hours-col">
+          <h3>Déjeuner</h3>
+          <p>Tous les jours: 12h00 - 14h30</p>
+        </div>
+        <div class="hours-col">
+          <h3>Dîner</h3>
+          <p>Tous les jours: 18h30 - 22h00</p>
+          <p><strong>Take-away</strong>: commande avant 17h00</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>Commandez facilement</h2>
+      
+      <div class="tab-container">
+        <div class="tabs">
+          <button class="tab active" onclick="openTab(event, 'breakfast')">Petit déjeuner</button>
+          <button class="tab" onclick="openTab(event, 'takeaway')">Take-away</button>
+        </div>
+        
+        <div id="breakfast" class="tab-content active">
+          <h3>Sandwichs pour le petit déjeuner</h3>
+          <p>Commandez vos sandwichs la veille avant 20h00 pour le lendemain matin.</p>
+          
+          <div class="menu-items">
+            <div class="menu-item">
+              <h3>Sandwich Alpin</h3>
+              <p>Fromage d'alpage, jambon cru, beurre, salade</p>
+              <div class="price">8.50 CHF</div>
+            </div>
+            
+            <div class="menu-item">
+              <h3>Sandwich Végétarien</h3>
+              <p>Gruyère, avocat, tomate, concombre, pesto</p>
+              <div class="price">7.50 CHF</div>
+            </div>
+            
+            <div class="menu-item">
+              <h3>Sandwich Nordique</h3>
+              <p>Saumon fumé, cream cheese, aneth, concombre</p>
+              <div class="price">9.50 CHF</div>
+            </div>
+            
+            <div class="menu-item">
+              <h3>Sandwich Classique</h3>
+              <p>Jambon, fromage, beurre, salade, tomate</p>
+              <div class="price">6.50 CHF</div>
+            </div>
+          </div>
+          
+          <div class="order-form">
+            <h3>Commander des sandwichs</h3>
+            <form id="breakfast-form">
+              <div class="form-row">
+                <label for="breakfast-name">Nom et prénom</label>
+                <input type="text" id="breakfast-name" required>
+              </div>
+              <div class="form-row">
+                <label for="breakfast-room">Numéro de chambre</label>
+                <input type="text" id="breakfast-room" required>
+              </div>
+              <div class="form-row">
+                <label for="breakfast-sandwich">Sandwich</label>
+                <select id="breakfast-sandwich" required>
+                  <option value="">Sélectionnez un sandwich</option>
+                  <option value="alpin">Sandwich Alpin (8.50 CHF)</option>
+                  <option value="vegetarien">Sandwich Végétarien (7.50 CHF)</option>
+                  <option value="nordique">Sandwich Nordique (9.50 CHF)</option>
+                  <option value="classique">Sandwich Classique (6.50 CHF)</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label for="breakfast-quantity">Quantité</label>
+                <input type="number" id="breakfast-quantity" min="1" value="1" required>
+              </div>
+              <div class="form-row">
+                <label for="breakfast-date">Date pour le petit déjeuner</label>
+                <input type="date" id="breakfast-date" required>
+              </div>
+              <div class="form-row">
+                <label for="breakfast-notes">Demandes particulières</label>
+                <textarea id="breakfast-notes" rows="3"></textarea>
+              </div>
+              <button type="submit">Commander</button>
+            </form>
+          </div>
+        </div>
+        
+        <div id="takeaway" class="tab-content">
+          <h3>Repas à emporter</h3>
+          <p>Commandez vos repas du soir avant 17h00 pour un retrait entre 18h30 et 20h00.</p>
+          
+          <div class="menu-items">
+            <div class="menu-item">
+              <h3>Fondue Moitié-Moitié</h3>
+              <p>Fondue traditionnelle au Gruyère et Vacherin, avec pain</p>
+              <div class="price">25.00 CHF</div>
+            </div>
+            
+            <div class="menu-item">
+              <h3>Assiette Valaisanne</h3>
+              <p>Sélection de viandes séchées et fromages locaux</p>
+              <div class="price">22.00 CHF</div>
+            </div>
+            
+            <div class="menu-item">
+              <h3>Rösti Montagnard</h3>
+              <p>Rösti avec lard, fromage et œuf au plat</p>
+              <div class="price">19.50 CHF</div>
+            </div>
+            
+            <div class="menu-item">
+              <h3>Salade du Chef</h3>
+              <p>Salade composée avec vinaigrette maison</p>
+              <div class="price">14.00 CHF</div>
+            </div>
+          </div>
+          
+          <div class="order-form">
+            <h3>Commander un repas à emporter</h3>
+            <form id="takeaway-form">
+              <div class="form-row">
+                <label for="takeaway-name">Nom et prénom</label>
+                <input type="text" id="takeaway-name" required>
+              </div>
+              <div class="form-row">
+                <label for="takeaway-room">Numéro de chambre</label>
+                <input type="text" id="takeaway-room" required>
+              </div>
+              <div class="form-row">
+                <label for="takeaway-meal">Repas</label>
+                <select id="takeaway-meal" required>
+                  <option value="">Sélectionnez un repas</option>
+                  <option value="fondue">Fondue Moitié-Moitié (25.00 CHF)</option>
+                  <option value="assiette">Assiette Valaisanne (22.00 CHF)</option>
+                  <option value="rosti">Rösti Montagnard (19.50 CHF)</option>
+                  <option value="salade">Salade du Chef (14.00 CHF)</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label for="takeaway-quantity">Quantité</label>
+                <input type="number" id="takeaway-quantity" min="1" value="1" required>
+              </div>
+              <div class="form-row">
+                <label for="takeaway-time">Heure de retrait</label>
+                <select id="takeaway-time" required>
+                  <option value="">Sélectionnez une heure</option>
+                  <option value="18:30">18:30</option>
+                  <option value="19:00">19:00</option>
+                  <option value="19:30">19:30</option>
+                  <option value="20:00">20:00</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label for="takeaway-notes">Demandes particulières</label>
+                <textarea id="takeaway-notes" rows="3"></textarea>
+              </div>
+              <button type="submit">Commander</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>Notre restaurant</h2>
+      <p>
+        Le Bistrot de Zinal vous accueille dans un cadre chaleureux et authentique au cœur des Alpes valaisannes.
+        Profitez de notre terrasse panoramique ou de notre salle conviviale pour déguster des plats traditionnels
+        préparés avec passion par notre chef.
+      </p>
+      <a href="#" class="cta-button">Voir notre carte complète</a>
     </div>
   </div>
+  
+  <div class="footer">
+    <div class="container">
+      <div class="logo">Bistrot de Zinal</div>
+      <div class="contact-info">
+        <p>Route de Zinal 42, 3961 Zinal, Suisse</p>
+        <p>Téléphone: +41 27 475 XX XX | Email: info@bistrotzinal.ch</p>
+      </div>
+      <div class="social-links">
+        <a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">TripAdvisor</a>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    function openTab(evt, tabName) {
+      var i, tabcontent, tablinks;
+      
+      // Hide all tab content
+      tabcontent = document.getElementsByClassName("tab-content");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].classList.remove("active");
+      }
+      
+      // Remove active class from all tabs
+      tablinks = document.getElementsByClassName("tab");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+      }
+      
+      // Show current tab and add active class
+      document.getElementById(tabName).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
+    
+    // Set current date as minimum for date inputs
+    document.addEventListener('DOMContentLoaded', function() {
+      const today = new Date().toISOString().split('T')[0];
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const tomorrowStr = tomorrow.toISOString().split('T')[0];
+      
+      if (document.getElementById('breakfast-date')) {
+        document.getElementById('breakfast-date').min = tomorrowStr;
+        document.getElementById('breakfast-date').value = tomorrowStr;
+      }
+      
+      // Form submission handling (mockup - would be replaced by actual form submission)
+      const forms = document.querySelectorAll('form');
+      forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const formId = e.target.id;
+          alert('Merci pour votre commande ! Nous la traiterons dans les plus brefs délais.');
+          e.target.reset();
+        });
+      });
+    });
+  </script>
 </body>
 </html>
