@@ -866,6 +866,58 @@
     .step.completed::after {
       background-color: var(--success-color);
     }
+    
+    .gallery {
+      margin: 2rem 0;
+    }
+    
+    .gallery-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(0,0,0,0.7);
+      color: white;
+      padding: 0.5rem;
+      text-align: center;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+    
+    .gallery-item:hover .gallery-caption {
+      transform: translateY(0);
+    }
+    
+    [data-theme="dark"] .gallery-item {
+      background-color: #333;
+    }
   </style>
 </head>
 <body>
@@ -948,16 +1000,17 @@
         <div class="hours-col">
           <h3>Petit déjeuner</h3>
           <p>Tous les jours: 7h00 - 10h30</p>
-          <p><strong>Commande de sandwichs</strong> avant 20h00 la veille</p>
+          <p><strong>Commande de sandwichs</strong> avant 17h00 la veille</p>
         </div>
         <div class="hours-col">
           <h3>Déjeuner</h3>
-          <p>Tous les jours: 12h00 - 14h30</p>
+          <p>Le restaurant n'est pas ouvert le midi</p>
+          <p><em>Commandes à emporter disponibles</em></p>
         </div>
         <div class="hours-col">
           <h3>Dîner</h3>
           <p>Tous les jours: 18h30 - 22h00</p>
-          <p><strong>Take-away</strong>: commande avant 17h00</p>
+          <p><strong>Take-away</strong>: commande entre 17h30 et 21h00</p>
         </div>
       </div>
     </div>
@@ -970,11 +1023,12 @@
           <button class="tab active" onclick="openTab(event, 'breakfast')">Petit déjeuner</button>
           <button class="tab" onclick="openTab(event, 'takeaway')">Take-away</button>
           <button class="tab" onclick="openTab(event, 'wraps')">Wraps & Lasagnes</button>
+          <button class="tab" onclick="openTab(event, 'plat-du-jour')">Plat du jour</button>
         </div>
         
         <div id="breakfast" class="tab-content active">
           <h3>Sandwichs pour le petit déjeuner</h3>
-          <p>Commandez vos sandwichs la veille avant 20h00 pour le lendemain matin.</p>
+          <p>Commandez vos sandwichs <strong>avant 17h00 la veille</strong> pour le lendemain matin.</p>
           
           <div class="menu-items">
             <div class="menu-item">
@@ -1043,7 +1097,7 @@
         
         <div id="takeaway" class="tab-content">
           <h3>Repas à emporter</h3>
-          <p>Commandez vos repas du soir avant 17h00 pour un retrait entre 18h30 et 20h00.</p>
+          <p>Commandez vos repas entre <strong>17h30 et 21h00</strong> pour un retrait dans l'heure.</p>
           
           <div class="menu-items">
             <div class="menu-item">
@@ -1117,7 +1171,7 @@
         
         <div id="wraps" class="tab-content">
           <h3>Wraps & Lasagnes</h3>
-          <p>Découvrez nos délicieuses options de wraps et lasagnes, disponibles à emporter ou sur place.</p>
+          <p>Découvrez nos délicieuses options de wraps et lasagnes, disponibles à emporter entre <strong>17h30 et 21h00</strong>.</p>
           
           <div class="menu-items">
             <div class="menu-item">
@@ -1134,6 +1188,18 @@
             </div>
             
             <div class="menu-item">
+              <h3>Wrap Montagnard</h3>
+              <p>Viande séchée, fromage à raclette, oignons caramélisés, roquette</p>
+              <div class="price">13.50 CHF</div>
+            </div>
+            
+            <div class="menu-item">
+              <h3>Wrap Saumon</h3>
+              <p>Saumon fumé, cream cheese, concombre, aneth, oignons rouges</p>
+              <div class="price">14.00 CHF</div>
+            </div>
+            
+            <div class="menu-item">
               <div class="special-badge">Fait maison</div>
               <h3>Lasagne Bolognaise</h3>
               <p>Lasagne traditionnelle à la viande, sauce tomate et béchamel</p>
@@ -1144,6 +1210,19 @@
               <h3>Lasagne Végétarienne</h3>
               <p>Lasagne aux légumes de saison et fromage de montagne</p>
               <div class="price">15.50 CHF</div>
+            </div>
+            
+            <div class="menu-item">
+              <div class="special-badge">Spécialité</div>
+              <h3>Lasagne aux Champignons</h3>
+              <p>Lasagne aux champignons des bois, crème et truffe</p>
+              <div class="price">18.50 CHF</div>
+            </div>
+            
+            <div class="menu-item">
+              <h3>Lasagne Épinards Ricotta</h3>
+              <p>Lasagne aux épinards frais et ricotta, sauce béchamel légère</p>
+              <div class="price">16.00 CHF</div>
             </div>
           </div>
           
@@ -1164,8 +1243,12 @@
                   <option value="">Sélectionnez un plat</option>
                   <option value="wrap-poulet">Wrap Poulet César (12.50 CHF)</option>
                   <option value="wrap-vege">Wrap Végétarien (11.00 CHF)</option>
+                  <option value="wrap-montagnard">Wrap Montagnard (13.50 CHF)</option>
+                  <option value="wrap-saumon">Wrap Saumon (14.00 CHF)</option>
                   <option value="lasagne-bolo">Lasagne Bolognaise (16.50 CHF)</option>
                   <option value="lasagne-vege">Lasagne Végétarienne (15.50 CHF)</option>
+                  <option value="lasagne-champignons">Lasagne aux Champignons (18.50 CHF)</option>
+                  <option value="lasagne-epinards">Lasagne Épinards Ricotta (16.00 CHF)</option>
                 </select>
               </div>
               <div class="form-row">
@@ -1176,17 +1259,81 @@
                 <label for="wraps-time">Heure de retrait</label>
                 <select id="wraps-time" required>
                   <option value="">Sélectionnez une heure</option>
-                  <option value="12:00">12:00</option>
-                  <option value="12:30">12:30</option>
-                  <option value="13:00">13:00</option>
+                  <option value="18:00">18:00</option>
                   <option value="18:30">18:30</option>
                   <option value="19:00">19:00</option>
                   <option value="19:30">19:30</option>
+                  <option value="20:00">20:00</option>
+                  <option value="20:30">20:30</option>
                 </select>
               </div>
               <div class="form-row">
                 <label for="wraps-notes">Demandes particulières</label>
                 <textarea id="wraps-notes" rows="3"></textarea>
+              </div>
+              <button type="submit" class="animated-button">Commander</button>
+            </form>
+          </div>
+        </div>
+        
+        <div id="plat-du-jour" class="tab-content">
+          <h3>Plat du jour</h3>
+          <p>Découvrez notre plat du jour, préparé avec des produits frais et de saison. Disponible à emporter entre <strong>17h30 et 21h00</strong>.</p>
+          
+          <div class="menu-items">
+            <div class="menu-item">
+              <div class="special-badge">Aujourd'hui</div>
+              <h3>Émincé de Bœuf Stroganoff</h3>
+              <p>Émincé de bœuf suisse, sauce à la crème et aux champignons, servi avec du riz</p>
+              <div class="price">24.50 CHF</div>
+            </div>
+            
+            <div class="menu-item">
+              <div class="special-badge">Demain</div>
+              <h3>Filet de Truite aux Amandes</h3>
+              <p>Filet de truite du Valais, amandes grillées, pommes de terre vapeur et légumes de saison</p>
+              <div class="price">26.00 CHF</div>
+            </div>
+          </div>
+          
+          <div class="order-form">
+            <h3>Commander le plat du jour</h3>
+            <form id="plat-du-jour-form">
+              <div class="form-row">
+                <label for="plat-name">Nom et prénom</label>
+                <input type="text" id="plat-name" required>
+              </div>
+              <div class="form-row">
+                <label for="plat-room">Numéro de chambre</label>
+                <input type="text" id="plat-room" required>
+              </div>
+              <div class="form-row">
+                <label for="plat-meal">Plat</label>
+                <select id="plat-meal" required>
+                  <option value="">Sélectionnez un plat</option>
+                  <option value="boeuf">Émincé de Bœuf Stroganoff (24.50 CHF)</option>
+                  <option value="truite">Filet de Truite aux Amandes (26.00 CHF) - pour demain</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label for="plat-quantity">Quantité</label>
+                <input type="number" id="plat-quantity" min="1" value="1" required>
+              </div>
+              <div class="form-row">
+                <label for="plat-time">Heure de retrait</label>
+                <select id="plat-time" required>
+                  <option value="">Sélectionnez une heure</option>
+                  <option value="18:00">18:00</option>
+                  <option value="18:30">18:30</option>
+                  <option value="19:00">19:00</option>
+                  <option value="19:30">19:30</option>
+                  <option value="20:00">20:00</option>
+                  <option value="20:30">20:30</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label for="plat-notes">Demandes particulières</label>
+                <textarea id="plat-notes" rows="3"></textarea>
               </div>
               <button type="submit" class="animated-button">Commander</button>
             </form>
@@ -1210,6 +1357,29 @@
         Profitez de notre terrasse panoramique ou de notre salle conviviale pour déguster des plats traditionnels
         préparés avec passion par notre chef.
       </p>
+      
+      <div class="gallery">
+        <h3>Galerie photos</h3>
+        <div class="gallery-container">
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Intérieur du restaurant">
+            <div class="gallery-caption">Notre salle principale</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Terrasse du restaurant">
+            <div class="gallery-caption">Notre terrasse panoramique</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Plat signature">
+            <div class="gallery-caption">Notre plat signature</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1560624052-449f5ddf0c31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Dessert maison">
+            <div class="gallery-caption">Nos desserts maison</div>
+          </div>
+        </div>
+      </div>
+      
       <a href="#" class="cta-button">Voir notre carte complète</a>
     </div>
     
@@ -1612,7 +1782,30 @@
         form.addEventListener('submit', function(e) {
           e.preventDefault();
           const formId = e.target.id;
-          alert('Merci pour votre commande ! Nous la traiterons dans les plus brefs délais.');
+          
+          // Check if it's after 17:00 for next day breakfast orders
+          const currentTime = new Date();
+          const hours = currentTime.getHours();
+          
+          if (formId === 'breakfast-form' && hours >= 17) {
+            showNotification('Les commandes de sandwichs pour le lendemain doivent être passées avant 17h00', true);
+            return;
+          }
+          
+          // For takeaway orders, check if it's between 17:30 and 21:00
+          if (formId === 'takeaway-form' || formId === 'wraps-form' || formId === 'plat-du-jour-form') {
+            if (hours < 17.5 || hours >= 21) {
+              showNotification('Les commandes à emporter sont disponibles entre 17h30 et 21h00', true);
+              return;
+            }
+          }
+          
+          // Generate order number and show confirmation
+          const orderNumber = 'CMD-' + Math.floor(Math.random() * 10000);
+          document.getElementById('order-number').textContent = orderNumber;
+          document.getElementById('order-confirmation-modal').classList.add('active');
+          
+          // Reset form
           e.target.reset();
         });
       });
@@ -1713,6 +1906,12 @@
         });
       });
       
+      // Disable lunch slots since restaurant is not open for lunch
+      document.querySelectorAll('#lunch-slots .time-slot').forEach(slot => {
+        slot.classList.add('disabled');
+        slot.setAttribute('title', 'Le restaurant n\'est pas ouvert le midi');
+      });
+      
       // Open reservation modal
       openReservationBtn.addEventListener('click', function() {
         reservationModal.classList.add('active');
@@ -1742,6 +1941,15 @@
         // Validate form
         const form = document.getElementById('reservation-form');
         if (form.checkValidity()) {
+          // Check if lunch time is selected (not available)
+          const timeValue = selectedTime;
+          const timeHour = parseInt(timeValue.split(':')[0]);
+          
+          if (timeHour >= 12 && timeHour < 17) {
+            showNotification('Le restaurant n\'est pas ouvert le midi. Veuillez sélectionner un autre horaire.', true);
+            return;
+          }
+          
           updateSummary();
           goToStep(3);
         } else {
@@ -1809,40 +2017,6 @@
           notification.classList.remove('show');
         }, 3000);
       }
-      
-      // Enhance order forms
-      const orderForms = document.querySelectorAll('#breakfast-form, #takeaway-form, #wraps-form');
-      
-      orderForms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-          e.preventDefault();
-          
-          // Check if it's after 17:00 for next day breakfast orders
-          const currentTime = new Date();
-          const hours = currentTime.getHours();
-          
-          if (form.id === 'breakfast-form' && hours >= 17) {
-            showNotification('Les commandes de sandwichs pour le lendemain doivent être passées avant 17h00', true);
-            return;
-          }
-          
-          // For takeaway orders, check if it's between 17:30 and 21:00
-          if (form.id === 'takeaway-form') {
-            if (hours < 17 || hours >= 21) {
-              showNotification('Les commandes à emporter sont disponibles entre 17h30 et 21h00', true);
-              return;
-            }
-          }
-          
-          // Here you would normally send the data to your server
-          const orderNumber = 'CMD-' + Math.floor(Math.random() * 10000);
-          document.getElementById('order-number').textContent = orderNumber;
-          document.getElementById('order-confirmation-modal').classList.add('active');
-          
-          // Reset form
-          form.reset();
-        });
-      });
     });
   </script>
 </body>
