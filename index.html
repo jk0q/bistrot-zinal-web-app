@@ -1468,20 +1468,28 @@
       <div class="gallery">
         <h3>Galerie photos</h3>
         <div class="gallery-container">
-          <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Intérieur du restaurant">
+          <div class="gallery-item animate-fade-up delay-100">
+            <div class="responsive-image">
+              <img class="lazy-image" data-src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" alt="Intérieur du restaurant">
+            </div>
             <div class="gallery-caption">Notre salle principale</div>
           </div>
-          <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Terrasse du restaurant">
+          <div class="gallery-item animate-fade-up delay-200">
+            <div class="responsive-image">
+              <img class="lazy-image" data-src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" alt="Terrasse du restaurant">
+            </div>
             <div class="gallery-caption">Notre terrasse panoramique</div>
           </div>
-          <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Plat signature">
+          <div class="gallery-item animate-fade-up delay-300">
+            <div class="responsive-image">
+              <img class="lazy-image" data-src="https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" src="https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" alt="Plat signature">
+            </div>
             <div class="gallery-caption">Notre plat signature</div>
           </div>
-          <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1560624052-449f5ddf0c31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Dessert maison">
+          <div class="gallery-item animate-fade-up delay-400">
+            <div class="responsive-image">
+              <img class="lazy-image" data-src="https://images.unsplash.com/photo-1560624052-449f5ddf0c31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" src="https://images.unsplash.com/photo-1560624052-449f5ddf0c31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" alt="Dessert maison">
+            </div>
             <div class="gallery-caption">Nos desserts maison</div>
           </div>
         </div>
@@ -2268,6 +2276,67 @@
         
         // Reset form
         e.target.reset();
+      });
+    }
+    
+    // Lazy loading images
+    const lazyImages = document.querySelectorAll('.lazy-image');
+    
+    function loadImage(img) {
+      const src = img.getAttribute('data-src');
+      if (!src) return;
+      
+      img.src = src;
+      img.addEventListener('load', function() {
+        img.classList.add('loaded');
+      });
+    }
+    
+    // Use Intersection Observer for lazy loading
+    if ('IntersectionObserver' in window) {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            loadImage(img);
+            observer.unobserve(img);
+          }
+        });
+      });
+      
+      lazyImages.forEach(img => {
+        imageObserver.observe(img);
+      });
+    } else {
+      // Fallback for browsers that don't support Intersection Observer
+      lazyImages.forEach(img => {
+        loadImage(img);
+      });
+    }
+    
+    // Add animation classes to elements when they come into view
+    const animatedElements = document.querySelectorAll('.menu-item, .faq-item, .contact-info, .contact-form');
+    
+    if ('IntersectionObserver' in window) {
+      const animationObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const element = entry.target;
+            
+            // Add different animations based on element position
+            if (element.getBoundingClientRect().left > window.innerWidth / 2) {
+              element.classList.add('animate-slide-left');
+            } else {
+              element.classList.add('animate-slide-right');
+            }
+            
+            observer.unobserve(element);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      animatedElements.forEach(element => {
+        animationObserver.observe(element);
       });
     }
   </script>
