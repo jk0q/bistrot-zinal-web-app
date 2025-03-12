@@ -1,0 +1,1 @@
+import React from 'react';export default function App() {return (<div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}><h1>Bistrot de Zinal</h1><p>Si vous voyez ce message, l'application fonctionne correctement !</p></div>)}
