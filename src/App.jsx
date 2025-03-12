@@ -1,44 +1,23 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { AppShell, Container, Title, Text, Stack } from '@mantine/core';
-import MainHeader from './components/MainHeader.jsx';
-import MainFooter from './components/MainFooter.jsx';
-import HomePage from './pages/HomePage.jsx';
-import MenuPage from './pages/MenuPage.jsx';
-import ContactPage from './pages/ContactPage.jsx';
-
-// Page simple pour tester le routage
-const TestPage = ({ title }) => (
-  <Container size="lg">
-    <Stack gap="xl" align="center">
-      <Title order={1}>{title}</Title>
-      <Text size="lg">Si vous voyez cette page, le routage fonctionne correctement!</Text>
-    </Stack>
-  </Container>
-);
+import { Container, Title, Text, Stack, Button, Group } from '@mantine/core';
 
 export default function App() {
   return (
-    <AppShell
-      header={{ height: 60 }}
-      footer={{ height: 60 }}
-      padding="md"
-    >
-      <AppShell.Header>
-        <MainHeader />
-      </AppShell.Header>
-
-      <AppShell.Main>
-        <Routes>
-          <Route path="/" element={<TestPage title="Page d'accueil (Test)" />} />
-          <Route path="/menu" element={<TestPage title="Page Menu (Test)" />} />
-          <Route path="/contact" element={<TestPage title="Page Contact (Test)" />} />
-        </Routes>
-      </AppShell.Main>
-
-      <AppShell.Footer>
-        <MainFooter />
-      </AppShell.Footer>
-    </AppShell>
+    <Container size="lg" pt={50}>
+      <Stack gap="xl" align="center">
+        <Title order={1}>Bistrot de Zinal</Title>
+        <Text size="lg" ta="center">
+          Application en cours de déploiement sur GitHub Pages.
+        </Text>
+        <Text size="md" ta="center">
+          Si vous voyez cette page, le déploiement fonctionne correctement !
+        </Text>
+        <Group>
+          <Button color="blue">Accueil</Button>
+          <Button color="green">Menu</Button>
+          <Button color="red">Contact</Button>
+        </Group>
+      </Stack>
+    </Container>
   );
 }
