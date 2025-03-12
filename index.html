@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bistrot de Zinal - Restaurant de l'Hôtel</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <title>Bistrot de Zinal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
       --primary-color: #5D4037;
@@ -918,6 +918,113 @@
     [data-theme="dark"] .gallery-item {
       background-color: #333;
     }
+    
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    
+    .contact-info, .contact-form {
+      background-color: var(--light-color);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .contact-info i {
+      width: 20px;
+      margin-right: 10px;
+      color: var(--primary-color);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+    
+    .social-link:hover {
+      background-color: var(--accent-color);
+    }
+    
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .faq-item {
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background-color: var(--light-color);
+      cursor: pointer;
+    }
+    
+    .faq-question h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+    
+    .faq-toggle {
+      font-size: 1.5rem;
+      font-weight: bold;
+      transition: transform 0.3s ease;
+    }
+    
+    .faq-answer {
+      padding: 0 1rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    
+    .faq-item.active .faq-toggle {
+      transform: rotate(45deg);
+    }
+    
+    .faq-item.active .faq-answer {
+      padding: 1rem;
+      max-height: 200px;
+    }
+    
+    [data-theme="dark"] .contact-info,
+    [data-theme="dark"] .contact-form,
+    [data-theme="dark"] .faq-question {
+      background-color: #333;
+      color: #fff;
+    }
+    
+    [data-theme="dark"] .faq-item {
+      border-color: #444;
+    }
+    
+    @media (max-width: 768px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1390,6 +1497,117 @@
         Nous vous accueillons tous les jours pour le déjeuner et le dîner.
       </p>
       <button id="open-reservation-modal" class="cta-button pulse">Réserver maintenant</button>
+    </div>
+    
+    <div class="section fade-in">
+      <h2>Contact</h2>
+      <div class="contact-container">
+        <div class="contact-info">
+          <h3>Informations</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Rue du Village 23, 3961 Zinal</p>
+          <p><i class="fas fa-phone"></i> +41 27 475 XX XX</p>
+          <p><i class="fas fa-envelope"></i> info@bistrotzinal.ch</p>
+          <p><i class="fas fa-clock"></i> Ouvert tous les jours</p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tripadvisor"></i></a>
+          </div>
+        </div>
+        <div class="contact-form">
+          <h3>Envoyez-nous un message</h3>
+          <form id="contact-form">
+            <div class="form-row">
+              <label for="contact-name">Nom et prénom</label>
+              <input type="text" id="contact-name" required>
+            </div>
+            <div class="form-row">
+              <label for="contact-email">Email</label>
+              <input type="email" id="contact-email" required>
+            </div>
+            <div class="form-row">
+              <label for="contact-subject">Sujet</label>
+              <select id="contact-subject" required>
+                <option value="">Sélectionnez un sujet</option>
+                <option value="reservation">Réservation</option>
+                <option value="info">Demande d'informations</option>
+                <option value="feedback">Commentaires</option>
+                <option value="other">Autre</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="contact-message">Message</label>
+              <textarea id="contact-message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="animated-button">Envoyer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section fade-in">
+      <h2>FAQ</h2>
+      <div class="faq-container">
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Quels sont vos horaires d'ouverture ?</h3>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Nous sommes ouverts tous les jours pour le petit déjeuner de 7h00 à 10h30 et pour le dîner de 18h30 à 22h00. Le restaurant n'est pas ouvert le midi.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Comment puis-je réserver une table ?</h3>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Vous pouvez réserver une table directement sur notre site web en utilisant notre système de réservation en ligne, par téléphone au +41 27 475 XX XX ou en nous envoyant un email à info@bistrotzinal.ch.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Proposez-vous des options végétariennes ou véganes ?</h3>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Oui, nous proposons plusieurs options végétariennes sur notre carte. Pour les options véganes, n'hésitez pas à nous contacter à l'avance et nous ferons de notre mieux pour répondre à vos besoins.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Comment fonctionnent les commandes à emporter ?</h3>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Vous pouvez commander des repas à emporter entre 17h30 et 21h00 directement sur notre site web ou par téléphone. Le retrait se fait généralement dans l'heure qui suit votre commande.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Acceptez-vous les animaux de compagnie ?</h3>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Les animaux de compagnie bien élevés sont les bienvenus sur notre terrasse extérieure, mais ne sont pas autorisés à l'intérieur du restaurant pour des raisons d'hygiène.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Proposez-vous des menus pour enfants ?</h3>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Oui, nous proposons un menu spécial pour les enfants avec des portions adaptées et des plats qui plaisent aux plus jeunes.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   
@@ -2018,6 +2236,40 @@
         }, 3000);
       }
     });
+    
+    // Handle FAQ toggles
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      
+      question.addEventListener('click', () => {
+        // Close all other items
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item && otherItem.classList.contains('active')) {
+            otherItem.classList.remove('active');
+          }
+        });
+        
+        // Toggle current item
+        item.classList.toggle('active');
+      });
+    });
+    
+    // Handle contact form submission
+    const contactForm = document.getElementById('contact-form');
+    
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Here you would normally send the data to your server
+        showNotification('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.', false);
+        
+        // Reset form
+        e.target.reset();
+      });
+    }
   </script>
 </body>
 </html>
