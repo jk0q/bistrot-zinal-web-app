@@ -1,3 +1,30 @@
+<<<<<<< HEAD
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Menu from './pages/Menu';
+import Takeaway from './pages/Takeaway';
+import './styles/App.css';
+
+function App() {
+  return (
+    <div className="app">
+      <Navbar />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/takeaway" element={<Takeaway />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+export default App; 
+=======
 import React, { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { AppShell, MantineProvider } from '@mantine/core'
@@ -88,3 +115,4 @@ declare global {
     };
   }
 }
+>>>>>>> 617ef222fd69f91f0626cc1231c4429e54caf7bf
