@@ -19,6 +19,8 @@ import MenuPage from './pages/MenuPage'
 import ContactPage from './pages/ContactPage'
 import CheckoutPage from './pages/CheckoutPage'
 import OrderConfirmationPage from './pages/OrderConfirmationPage'
+import BreakfastPage from './pages/BreakfastPage'
+import Takeaway from './pages/Takeaway'
 import NotificationSystem from './components/NotificationSystem'
 import { useNotification } from './hooks/useNotification'
 import './App.css'
@@ -59,7 +61,7 @@ export default function App() {
   }, [showSuccess, showError, showInfo, showWarning, welcomeShown]);
 
   return (
-    <Router>
+    <Router basename="/bistrot-zinal-web-app">
       <div className="app">
         <NotificationSystem 
           notifications={notifications}
@@ -73,6 +75,8 @@ export default function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
+            <Route path="/breakfast" element={<BreakfastPage />} />
+            <Route path="/takeaway" element={<Takeaway />} />
           </Routes>
         </main>
         <MainFooter />
