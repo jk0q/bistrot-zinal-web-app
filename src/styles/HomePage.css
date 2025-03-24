@@ -1,0 +1,139 @@
+/* Styles pour la page d'accueil */
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.welcome-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #2C3E50;
+  text-align: center;
+  line-height: 1.2;
+  font-family: 'Playfair Display', serif;
+}
+
+.hero-image {
+  height: 500px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.description {
+  font-size: 1.4rem;
+  text-align: center;
+  max-width: 800px;
+  line-height: 1.6;
+  color: #34495E;
+  font-family: 'Lato', sans-serif;
+}
+
+.section {
+  width: 100%;
+  max-width: 800px;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem 0;
+  color: #2C3E50;
+  font-family: 'Playfair Display', serif;
+}
+
+.list-item {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  color: #34495E;
+  font-family: 'Lato', sans-serif;
+}
+
+.buttons-container {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.primary-button {
+  padding: 1rem 2rem;
+  background-color: #2C3E50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 300px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  font-family: 'Lato', sans-serif;
+}
+
+.primary-button:hover {
+  background-color: #34495E;
+  transform: translateY(-2px);
+}
+
+.secondary-button {
+  padding: 1rem 2rem;
+  background-color: white;
+  color: #2C3E50;
+  border: 2px solid #2C3E50;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 300px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  font-family: 'Lato', sans-serif;
+}
+
+.secondary-button:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-2px);
+}
+
+.footer-text {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #34495E;
+  line-height: 1.6;
+  font-family: 'Lato', sans-serif;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .welcome-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-image {
+    height: 300px;
+  }
+
+  .buttons-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .primary-button,
+  .secondary-button {
+    width: 100%;
+  }
+} 

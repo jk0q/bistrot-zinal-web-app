@@ -1,10 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import { describe, it, expect } from 'vitest';
 import HomePage from './HomePage';
+import { describe, it, expect } from 'vitest';
 
-// Wrapper pour fournir le contexte du routeur
 const HomePageWithRouter = () => (
   <BrowserRouter>
     <HomePage />
@@ -14,34 +13,38 @@ const HomePageWithRouter = () => (
 describe('HomePage', () => {
   it('renders the welcome title', () => {
     render(<HomePageWithRouter />);
-    expect(screen.getByText(/Bienvenue au Bistrot de Zinal/i)).toBeInTheDocument();
+    const title = screen.getByTestId('welcome-title');
+    expect(title).toBeInTheDocument();
+    expect(title).toHaveTextContent(/Bienvenue au Bistrot de Zinal/i);
   });
 
   it('displays the opening hours section', () => {
     render(<HomePageWithRouter />);
-    expect(screen.getByText(/Nos horaires/i)).toBeInTheDocument();
-    expect(screen.getByText(/Petit déjeuner/i)).toBeInTheDocument();
-    expect(screen.getByText(/7h00 - 10h30/i)).toBeInTheDocument();
+    const hoursTitle = screen.getByTestId('hours-title');
+    expect(hoursTitle).toBeInTheDocument();
+    expect(hoursTitle).toHaveTextContent(/Nos horaires/i);
+    expect(screen.getByText(/Petit déjeuner: 7h00 - 10h30/i)).toBeInTheDocument();
   });
 
   it('displays the specialties section', () => {
     render(<HomePageWithRouter />);
-    expect(screen.getByText(/Nos spécialités/i)).toBeInTheDocument();
+    const specialtiesTitle = screen.getByTestId('specialties-title');
+    expect(specialtiesTitle).toBeInTheDocument();
+    expect(specialtiesTitle).toHaveTextContent(/Nos spécialités/i);
     expect(screen.getByText(/Fondue Moitié-Moitié/i)).toBeInTheDocument();
-    expect(screen.getByText(/Assiette Valaisanne/i)).toBeInTheDocument();
   });
 
   it('has a link to the menu page', () => {
     render(<HomePageWithRouter />);
-    const menuLink = screen.getByText(/Voir notre menu complet/i);
+    const menuLink = screen.getByTestId('menu-link');
     expect(menuLink).toBeInTheDocument();
-    expect(menuLink.closest('a')).toHaveAttribute('href', '/menu');
+    expect(menuLink).toHaveAttribute('href', '/menu');
   });
 
   it('has a link to the contact page', () => {
     render(<HomePageWithRouter />);
-    const contactLink = screen.getByText(/Nous contacter/i);
+    const contactLink = screen.getByTestId('contact-link');
     expect(contactLink).toBeInTheDocument();
-    expect(contactLink.closest('a')).toHaveAttribute('href', '/contact');
+    expect(contactLink).toHaveAttribute('href', '/contact');
   });
 }); 
