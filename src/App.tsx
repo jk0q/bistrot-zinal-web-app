@@ -61,7 +61,7 @@ export default function App() {
   }, [showSuccess, showError, showInfo, showWarning, welcomeShown]);
 
   return (
-    <Router basename="/bistrot-zinal-web-app">
+    <Router basename="">
       <div className="app">
         <NotificationSystem 
           notifications={notifications}
