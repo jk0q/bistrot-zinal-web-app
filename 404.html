@@ -1,105 +1,35 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page non trouvée - Bistrot de Zinal</title>
-  <style>
-    :root {
-      --primary-color: #5D4037;
-      --accent-color: #8D6E63;
-      --light-color: #EFEBE9;
-      --dark-color: #3E2723;
-    }
-    
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: var(--light-color);
-      color: var(--dark-color);
-      line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .header {
-      background-color: var(--primary-color);
-      color: white;
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-    
-    .logo {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-    }
-    
-    .main {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
-    
-    .container {
-      max-width: 600px;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      padding: 2rem;
-      text-align: center;
-    }
-    
-    h1 {
-      color: var(--primary-color);
-      margin-top: 0;
-    }
-    
-    .button {
-      display: inline-block;
-      padding: 0.8rem 1.5rem;
-      background-color: var(--primary-color);
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: bold;
-      margin-top: 1rem;
-      transition: background-color 0.3s ease;
-    }
-    
-    .button:hover {
-      background-color: var(--accent-color);
-    }
-    
-    .footer {
-      background-color: var(--primary-color);
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      margin-top: auto;
-    }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <div class="logo">Bistrot de Zinal</div>
-  </div>
-  
-  <div class="main">
-    <div class="container">
-      <h1>Page non trouvée</h1>
-      <p>Désolé, la page que vous recherchez n'existe pas ou a été déplacée.</p>
-      <p>Retournez à notre page d'accueil pour découvrir notre menu et nos services.</p>
-      <a href="index.html" class="button">Retour à l'accueil</a>
-    </div>
-  </div>
-  
-  <div class="footer">
-    <p>© 2024 Bistrot de Zinal. Tous droits réservés.</p>
-  </div>
-</body>
-</html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bistrot de Zinal</title>
+    <script type="text/javascript">
+      // Résolution SPA pour GitHub Pages
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+    <script type="text/javascript">
+      // Redirection vers index.html
+      var segmentCount = 1;
+      var location = window.location;
+      location.replace(
+        location.protocol + '//' + location.hostname + 
+        (location.port ? ':' + location.port : '') +
+        location.pathname.split('/').slice(0, 1 + segmentCount).join('/') + 
+        '/?p=/' + location.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~') +
+        (location.search ? '&q=' + location.search.slice(1).replace(/&/g, '~and~') : '') +
+        location.hash
+      );
+    </script>
+  </head>
+  <body>
+  </body>
+</html> 
