@@ -25,4 +25,10 @@ export default defineConfig({
       '@': resolve(__dirname, 'src'),
     },
   },
+  server: {
+    headers: {
+      'Content-Type': 'application/javascript',
+      'X-Content-Type-Options': 'nosniff'
+    }
+  }
 })
