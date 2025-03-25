@@ -5,7 +5,7 @@ import { resolve } from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './',
+  base: '/bistrot-zinal-web-app/',
   build: {
     outDir: 'dist',
     emptyOutDir: true,
@@ -13,6 +13,9 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
       },
+      output: {
+        manualChunks: undefined,
+      }
     }
   },
   resolve: {
