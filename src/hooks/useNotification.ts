@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 
 interface Notification {
   id: number
@@ -9,6 +9,16 @@ interface Notification {
 export function useNotification() {
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [nextId, setNextId] = useState(1)
+  const timeoutsRef = useRef<{ [key: number]: number }>({})
+
+  // Nettoyer les timeouts lors du démontage
+  useEffect(() => {
+    return () => {
+      Object.values(timeoutsRef.current).forEach(timeout => {
+        clearTimeout(timeout)
+      })
+    }
+  }, [])
 
   const addNotification = useCallback((message: string, type: Notification['type'], duration = 5000) => {
     const id = nextId
@@ -17,9 +27,10 @@ export function useNotification() {
     setNotifications(prev => [...prev, { id, message, type }])
 
     if (duration > 0) {
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         removeNotification(id)
       }, duration)
+      timeoutsRef.current[id] = timeout
     }
 
     return id
@@ -27,22 +38,28 @@ export function useNotification() {
 
   const removeNotification = useCallback((id: number) => {
     setNotifications(prev => prev.filter(notification => notification.id !== id))
+    
+    // Nettoyer le timeout associé
+    if (timeoutsRef.current[id]) {
+      clearTimeout(timeoutsRef.current[id])
+      delete timeoutsRef.current[id]
+    }
   }, [])
 
   const showSuccess = useCallback((message: string, duration?: number) => {
-    return addNotification(message, 'success', duration)
+    return Promise.resolve(addNotification(message, 'success', duration))
   }, [addNotification])
 
   const showError = useCallback((message: string, duration?: number) => {
-    return addNotification(message, 'error', duration)
+    return Promise.resolve(addNotification(message, 'error', duration))
   }, [addNotification])
 
   const showInfo = useCallback((message: string, duration?: number) => {
-    return addNotification(message, 'info', duration)
+    return Promise.resolve(addNotification(message, 'info', duration))
   }, [addNotification])
 
   const showWarning = useCallback((message: string, duration?: number) => {
-    return addNotification(message, 'warning', duration)
+    return Promise.resolve(addNotification(message, 'warning', duration))
   }, [addNotification])
 
   return {
