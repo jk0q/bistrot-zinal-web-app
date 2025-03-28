@@ -19,12 +19,32 @@ export default defineConfig({
         entryFileNames: 'assets/[name].js',
         format: 'es'
       }
+    },
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: false,
+        drop_debugger: true,
+        pure_funcs: ['console.log'],
+      },
+      format: {
+        comments: false,
+      },
+      mangle: true,
     }
   },
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
     },
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'es2020'
+    }
+  },
+  esbuild: {
+    target: 'es2020'
   },
   server: {
     headers: {
