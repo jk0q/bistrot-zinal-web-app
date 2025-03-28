@@ -29,7 +29,8 @@ export default defineConfig({
   server: {
     headers: {
       'Content-Type': 'application/javascript',
-      'X-Content-Type-Options': 'nosniff'
+      'X-Content-Type-Options': 'nosniff',
+      'Content-Security-Policy': "script-src 'self' 'unsafe-eval' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:;"
     }
   }
 })
