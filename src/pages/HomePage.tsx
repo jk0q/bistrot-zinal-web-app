@@ -1,66 +1,73 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import '../styles/HomePage.css'
 
-export default function HomePage() {
+const HomePage: React.FC = () => {
+  const navigate = useNavigate()
+
   return (
-    <div className="home-container">
-      <div className="content-wrapper">
-        <h1 data-testid="welcome-title" className="welcome-title">
-          Bienvenue au Bistrot de Zinal
-        </h1>
+    <div className="home-page">
+      <div className="hero-section">
+        <h1 className="hero-title">Bistrot de Zinal</h1>
+        <p className="hero-subtitle">Cuisine de montagne authentique</p>
+      </div>
 
-        <img
-          src="https://placehold.co/800x400?text=Bistrot+de+Zinal"
-          alt="Façade du Bistrot de Zinal"
-          className="hero-image"
-        />
+      <div className="main-buttons-container">
+        <button 
+          className="main-nav-button menu-button"
+          onClick={() => navigate('/menu')}
+        >
+          <i className="fas fa-utensils button-icon"></i>
+          <span className="button-text">Menu Restaurant</span>
+          <span className="button-description">Découvrez notre carte et nos spécialités</span>
+        </button>
 
-        <p className="description">
-          Découvrez notre cuisine authentique et chaleureuse au cœur des Alpes valaisannes.
-        </p>
+        <button 
+          className="main-nav-button takeaway-button"
+          onClick={() => navigate('/takeaway')}
+        >
+          <i className="fas fa-shopping-bag button-icon"></i>
+          <span className="button-text">Commande à emporter</span>
+          <span className="button-description">Commandez et emportez vos plats préférés</span>
+        </button>
 
-        <div className="section">
-          <h2 data-testid="hours-title" className="section-title">
-            Nos horaires
-          </h2>
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-            <li className="list-item">Petit déjeuner: 7h00 - 10h30</li>
-            <li className="list-item">Déjeuner: 11h30 - 14h30</li>
-            <li className="list-item">Dîner: 18h30 - 22h00</li>
-          </ul>
+        <button 
+          className="main-nav-button breakfast-button"
+          onClick={() => navigate('/breakfast')}
+        >
+          <i className="fas fa-coffee button-icon"></i>
+          <span className="button-text">Petit déjeuner</span>
+          <span className="button-description">Démarrez votre journée avec nos petits déjeuners</span>
+        </button>
+      </div>
+
+      <div className="home-info">
+        <div className="info-card">
+          <i className="fas fa-clock info-icon"></i>
+          <div className="info-content">
+            <h3>Horaires d'ouverture</h3>
+            <p>Tous les jours: 7h00 - 22h00</p>
+          </div>
         </div>
 
-        <div className="section">
-          <h2 data-testid="specialties-title" className="section-title">
-            Nos spécialités
-          </h2>
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-            <li className="list-item">Fondue Moitié-Moitié</li>
-            <li className="list-item">Assiette Valaisanne</li>
-            <li className="list-item">Rösti maison</li>
-          </ul>
+        <div className="info-card">
+          <i className="fas fa-map-marker-alt info-icon"></i>
+          <div className="info-content">
+            <h3>Adresse</h3>
+            <p>Place du Village, Zinal, Valais</p>
+          </div>
         </div>
 
-        <div className="buttons-container">
-          <Link to="/menu" data-testid="menu-link" style={{ textDecoration: 'none' }}>
-            <button className="primary-button">
-              Voir notre menu complet
-            </button>
-          </Link>
-          <Link to="/contact" data-testid="contact-link" style={{ textDecoration: 'none' }}>
-            <button className="secondary-button">
-              Nous contacter
-            </button>
-          </Link>
+        <div className="info-card">
+          <i className="fas fa-phone info-icon"></i>
+          <div className="info-content">
+            <h3>Réservations</h3>
+            <p>+41 27 123 45 67</p>
+          </div>
         </div>
-
-        <p className="footer-text">
-          Ouvert tous les jours de 9h à 23h
-          <br />
-          Route de Zinal 42, 3961 Zinal
-        </p>
       </div>
     </div>
   )
 }
+
+export default HomePage

@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import MainHeader from './components/MainHeader'
 import MainFooter from './components/MainFooter'
@@ -19,6 +19,8 @@ import MenuPage from './pages/MenuPage'
 import ContactPage from './pages/ContactPage'
 import CheckoutPage from './pages/CheckoutPage'
 import OrderConfirmationPage from './pages/OrderConfirmationPage'
+import BreakfastPage from './pages/BreakfastPage'
+import Takeaway from './pages/Takeaway'
 import NotificationSystem from './components/NotificationSystem'
 import { useNotification } from './hooks/useNotification'
 import './App.css'
@@ -34,32 +36,65 @@ export default function App() {
     showWarning
   } = useNotification();
 
+  // Créer des versions sécurisées des fonctions de notification
+  const safeShowSuccess = useCallback((message: string, duration?: number) => {
+    try {
+      showSuccess(message, duration);
+    } catch (error) {
+      console.warn('Error showing success notification:', error);
+    }
+  }, [showSuccess]);
+
+  const safeShowError = useCallback((message: string, duration?: number) => {
+    try {
+      showError(message, duration);
+    } catch (error) {
+      console.warn('Error showing error notification:', error);
+    }
+  }, [showError]);
+
+  const safeShowInfo = useCallback((message: string, duration?: number) => {
+    try {
+      showInfo(message, duration);
+    } catch (error) {
+      console.warn('Error showing info notification:', error);
+    }
+  }, [showInfo]);
+
+  const safeShowWarning = useCallback((message: string, duration?: number) => {
+    try {
+      showWarning(message, duration);
+    } catch (error) {
+      console.warn('Error showing warning notification:', error);
+    }
+  }, [showWarning]);
+
   // Exposer les fonctions de notification globalement pour faciliter les tests
   React.useEffect(() => {
     if (import.meta.env.DEV) {
       window.showNotification = {
-        success: showSuccess,
-        error: showError,
-        info: showInfo,
-        warning: showWarning
+        success: safeShowSuccess,
+        error: safeShowError,
+        info: safeShowInfo,
+        warning: safeShowWarning
       };
     }
     
     // Exemple de notification au démarrage (à supprimer en production)
     if (!welcomeShown) {
-      showInfo('Bienvenue au Bistrot de Zinal!');
+      safeShowInfo('Bienvenue au Bistrot de Zinal!');
       setWelcomeShown(true);
     }
     
     return () => {
       if (import.meta.env.DEV && window.showNotification) {
-        delete window.showNotification;
+        window.showNotification = undefined;
       }
     };
-  }, [showSuccess, showError, showInfo, showWarning, welcomeShown]);
+  }, [safeShowSuccess, safeShowError, safeShowInfo, safeShowWarning, welcomeShown]);
 
   return (
-    <Router>
+    <Router basename="">
       <div className="app">
         <NotificationSystem 
           notifications={notifications}
@@ -73,6 +108,8 @@ export default function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
+            <Route path="/breakfast" element={<BreakfastPage />} />
+            <Route path="/takeaway" element={<Takeaway />} />
           </Routes>
         </main>
         <MainFooter />
